@@ -1,2 +1,3 @@
 # chatbotbasics
-developement of a chatbot usecase at hka 
+developement of a chatbot usecase at hka 2023 
+
