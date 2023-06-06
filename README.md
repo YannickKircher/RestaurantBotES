@@ -1,3 +1,2 @@
-# chatbotbasics
-developement of a chatbot usecase at hka 2023 
+# Chatbot development and code using dialogflow and GCP 
 
