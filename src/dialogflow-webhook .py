@@ -1,4 +1,6 @@
-import json
+import numpy as np
+from google.cloud import bigquery
+
 
 def webhook_call(request):
     """Responds to any HTTP request.
@@ -10,9 +12,20 @@ def webhook_call(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
     request_json = request.get_json()
-    print(request_json)
+    #print(request_json)
     
     intent = request_json["queryResult"]["intent"]["displayName"]
+
+    random_id = np.random.randint(0,48)
+
+    query = f"SELECT * FROM `restaurantguide-9oyv.restaurant_guide.restaurants` WHERE int64_field_0 = {random_id}"
+
+    client = bigquery.Client()
+    query_job = client.query(query)
+
+    for r in query_job:
+        row = r
+        break
 
     # response = {
     #         "fulfillmentMessages": [
@@ -30,9 +43,9 @@ def webhook_call(request):
         "fulfillmentMessages": [
             {
             "card": {
-                "title": f"you tried to execute: {intent}",
-                "subtitle": "card text",
-                "imageUri": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/a1/3d/89/aerial-view.jpg?w=1000&h=600&s=1",
+                "title": row["name"],
+                "subtitle": row["Rating"],
+                "imageUri": row["img_url"],
             }
             }
         ]
