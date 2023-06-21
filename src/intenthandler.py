@@ -17,7 +17,8 @@ def restaurant_intent_handler(request_json):
         #select first (best rated) restaurant with the dish on the menu
         # workaround because I'm not using NoSQL 
         for dish in request_json["queryResult"]["parameters"]["dish"]:
-            restaurant_list = [item for item in query_df.iterrows() if dish in item[1]["menu_list"]]
+            restaurant_list = [item for item in query_df.iterrows() 
+                                if dish in item[1]["menu_list"] or dish.capitalize() in item[1]["menu_list"]]
             break
         
         #found no restaurant with that item on the menu 
