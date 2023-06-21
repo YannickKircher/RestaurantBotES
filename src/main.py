@@ -18,8 +18,9 @@ def webhook_call(request):
     intent = request_json["queryResult"]["intent"]["displayName"]
     
     if intent == "restaurants":
+        print(request_json)
         return restaurant_intent_handler(request_json)
-
+    
     else:
         return None
 

@@ -22,13 +22,15 @@ def restaurant_intent_handler(request_json):
         query_job = client.query(str(query))
         query.clear()
         query_df = DataFrame([dict(row) for row in query_job])
+        sample_df = query_df.sample()
         
-        return return_card(title = query_df["name"][0],
-                       subtitle = str([round(query_df["rating"][0],2), query_df["country"][0], query_df["price_range"][0]]),
-                       img_url = query_df["img_url"][0],
-                       btn_url = query_df["img_url"][0],
-                       btn_text = "go to Restaurant web page"
-                       )
+
+        return return_card(title = sample_df["name"].values[0],
+                        subtitle = str([round(sample_df["rating"].values[0],2), sample_df["country"].values[0], sample_df["price_range"].values[0]]),
+                        img_url = sample_df["img_url"].values[0],
+                        btn_url = sample_df["img_url"].values[0],
+                        btn_text = "go to Restaurant web page"
+                        )
         
     except KeyError:
         global default_user_price_range
@@ -43,7 +45,7 @@ def restaurant_intent_handler(request_json):
         
         return return_card(title = sample_df["name"].values[0],
                         subtitle = "I could not find any sprecific restaurant, but you might like this" 
-                                        + str([sample_df["rating"].values[0], sample_df["country"].values[0], sample_df["price_range"].values[0]]),
+                                        + str([round(sample_df["rating"].values[0],2), sample_df["country"].values[0], sample_df["price_range"].values[0]]),
                         img_url = sample_df["img_url"].values[0],
                         btn_url = sample_df["img_url"].values[0],
                         btn_text = "go to Restaurant web page"
