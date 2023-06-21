@@ -4,8 +4,6 @@ from json_return import return_text, return_card
 from query import CustomQuery
 from intenthandler import restaurant_intent_handler
 
-default_user_price_range = "low"
-
 def webhook_call(request):
     """Responds to any HTTP request.
     Args:

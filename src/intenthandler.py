@@ -3,6 +3,8 @@ from google.cloud import bigquery
 from json_return import return_text, return_card
 from query import CustomQuery
 
+default_user_price_range = "low"
+
 def restaurant_intent_handler(request_json):
     client = bigquery.Client()
     print(request_json["queryResult"]["parameters"])
