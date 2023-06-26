@@ -1,10 +1,37 @@
 
 class CustomQuery():
-    def __init__(self, table_name:str, column_names_to_select:str="*", where_statements:dict={}, order_by_list:list=[], order_desc:bool=True, limit:int=None):
+    def __init__(self, table_name:str,
+                 column_names_to_select:str="*",
+                 where_statements:dict=None,
+                 order_by_list:list=None,
+                 order_desc:bool=True,
+                 limit:int=None):
+        """CustomQuery class to build a SQL query.
+
+        Args:
+            table_name (str): table to query from
+            column_names_to_select (str, optional): column names to select. Defaults to "*".
+            where_statements (dict, optional): where statements like: 
+                {"rating":">= 10", "test":"='test2'"}. 
+                Defaults to None.
+            order_by_list (list, optional): columns to order the results by. Defaults to None.
+            order_desc (bool, optional): how to order all the columns. Defaults to True.
+            limit (int, optional): limit of selections. Defaults to None.
+        """
+        
+        if where_statements is None:
+            self.where_statements = {}
+        else:
+            self.where_statements = where_statements
+            
+        if order_by_list is None:
+            self.order_by_list = []
+        else:
+            self.order_by_list = order_by_list
+            
+        
         self.column_names_to_select = column_names_to_select
         self.table_name = table_name
-        self._where_statements = where_statements
-        self.order_by_list = order_by_list
         self.order_desc = order_desc
         self.limit = limit
     
@@ -17,6 +44,7 @@ class CustomQuery():
     
     def clear(self):
         self._where_statements={}
+        self.order_by_list=[]
         
     def __str__(self):
         """builds the final query and returns it as a str"""
