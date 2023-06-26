@@ -78,6 +78,8 @@ def restaurant_intent_handler(request_json):
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
                 query.add_where({'location':
                     f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
+            else:
+                query.add_where({'location': f' = "{default_user_location}"'})
 
             #pick a random restaurant from the top n restaurants
             #n is equal to the user openness
