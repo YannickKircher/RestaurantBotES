@@ -20,9 +20,9 @@ class CustomQuery():
         """
         
         if where_statements is None:
-            self.where_statements = {}
+            self._where_statements = {}
         else:
-            self.where_statements = where_statements
+            self._where_statements = where_statements
             
         if order_by_list is None:
             self.order_by_list = []
