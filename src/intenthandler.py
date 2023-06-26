@@ -2,15 +2,19 @@ from pandas import DataFrame
 from google.cloud import bigquery
 from json_return import return_text, return_card
 from query import CustomQuery
+from configparser import ConfigParser
 
 
 def restaurant_intent_handler(request_json):
     
     #default user preferences for simulating a generic user
     #-> because i dont have user accounts
-    default_user_price_range = "low"
-    default_user_location = "Matera"
-    default_user_openness = 4 
+    config = ConfigParser()
+    config.read('config.ini')
+
+    default_user_price_range = config["default_user_preferences"]["default_user_price_range"]
+    default_user_location = config["default_user_preferences"]["default_user_location"]
+    default_user_openness = config["default_user_preferences"]["default_user_openness"]
     
     db_table_to_query = "`restaurantguide-9oyv.restaurant_guide.restaurants_random`"
     
