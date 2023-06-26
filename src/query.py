@@ -3,7 +3,7 @@ class CustomQuery():
     def __init__(self, table_name:str,
                  column_names_to_select:str="*",
                  where_statements:dict=None,
-                 order_by_list:list=None,
+                 order_by_list:list[str]=None,
                  order_desc:bool=True,
                  limit:int=None):
         """CustomQuery class to build a SQL query.
