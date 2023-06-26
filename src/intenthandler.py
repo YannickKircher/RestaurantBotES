@@ -3,13 +3,11 @@ from google.cloud import bigquery
 from json_return import return_text, return_card
 from query import CustomQuery
 
-default_user_price_range = "low"
-default_user_location = "Matera"
-
-default_user_openness = 4 
 
 def restaurant_intent_handler(request_json):
     
+    #default user preferences for simulating a generic user
+    #-> because i dont have user accounts
     default_user_price_range = "low"
     default_user_location = "Matera"
     default_user_openness = 4 
@@ -43,7 +41,7 @@ def restaurant_intent_handler(request_json):
                     ', '.join(request_json["queryResult"]["parameters"]["dish"])
                     } on the Menu""")
 
-        else: #found at least 1 pick the best rated one
+        else: #found at least 1 -> pick the best rated one
             restaurant = restaurant_list[0][1]
             return return_card(title = restaurant["name"],
                                 subtitle = str([
@@ -57,7 +55,7 @@ def restaurant_intent_handler(request_json):
                                 btn_text = "go to Restaurant web page"
                                 )
     
-    # query for a restaurant with the given parameters except for the dish
+    # query for a restaurant with the given parameters except for the dishes
     else:
         try: 
             query = CustomQuery(table_name="`restaurantguide-9oyv.restaurant_guide.restaurants_random`",order_by_list=["rating"])
@@ -93,12 +91,13 @@ def restaurant_intent_handler(request_json):
                             btn_text = "go to Restaurant web page"
                             )
         
-        # if the query returns no valid restraurant that fits the specifications, 
-        # -> return a restaurant, that matches default user preferences and the location if given else use default_user_location
+        # if the query returns no valid restaurant that fits the specifications, 
+        # -> return a restaurant, that matches default user preferences 
+        # and the location if given else use default_user_location
         except KeyError:
             query = CustomQuery(table_name="`restaurantguide-9oyv.restaurant_guide.restaurants_random`",
                                 where_statements={'price_range':f'= "{default_user_price_range}"'},
-                                order_by_list=["rating"], limit=10)
+                                order_by_list=["rating"], limit = default_user_openness)
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
                 query.add_where({'location': f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
             else:
