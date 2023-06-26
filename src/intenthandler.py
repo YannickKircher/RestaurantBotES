@@ -12,12 +12,14 @@ def restaurant_intent_handler(request_json):
     default_user_location = "Matera"
     default_user_openness = 4 
     
+    db_table_to_query = "`restaurantguide-9oyv.restaurant_guide.restaurants_random`"
+    
     
     client = bigquery.Client()
  
     # if a dish was given as a parameter, return the best rated restaurant with that dish on the menu and a matching location
     if len(request_json["queryResult"]["parameters"]["dish"]) > 0 :
-        query = CustomQuery(table_name="`restaurantguide-9oyv.restaurant_guide.restaurants_random`",order_by_list=["rating"])
+        query = CustomQuery(table_name=db_table_to_query,order_by_list=["rating"])
         #check for location preference and add a where statement if found
         if request_json["queryResult"]["parameters"]["geo-city"] != "None":
             query.add_where({'location': f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
@@ -58,7 +60,7 @@ def restaurant_intent_handler(request_json):
     # query for a restaurant with the given parameters except for the dishes
     else:
         try: 
-            query = CustomQuery(table_name="`restaurantguide-9oyv.restaurant_guide.restaurants_random`",order_by_list=["rating"])
+            query = CustomQuery(table_name=db_table_to_query,order_by_list=["rating"])
             #check for price preference and add a where statement if found
             if request_json["queryResult"]["parameters"]["price_range"] != "None":
                 query.add_where({f'price_range' : f'= "{request_json["queryResult"]["parameters"]["price_range"].lower()}"'})
@@ -95,7 +97,7 @@ def restaurant_intent_handler(request_json):
         # -> return a restaurant, that matches default user preferences 
         # and the location if given else use default_user_location
         except KeyError:
-            query = CustomQuery(table_name="`restaurantguide-9oyv.restaurant_guide.restaurants_random`",
+            query = CustomQuery(table_name=db_table_to_query,
                                 where_statements={'price_range':f'= "{default_user_price_range}"'},
                                 order_by_list=["rating"], limit = default_user_openness)
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
