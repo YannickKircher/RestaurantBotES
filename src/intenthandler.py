@@ -52,7 +52,8 @@ def restaurant_intent_handler(request_json):
                                         round(restaurant["rating"],2), 
                                         restaurant["country"], 
                                         restaurant["price_range"], 
-                                        restaurant["menu_list"]
+                                        restaurant["location"],
+                                        restaurant["menu_list"],
                                     ]),
                                 img_url = restaurant["img_url"],
                                 btn_url = restaurant["img_url"],
@@ -76,13 +77,14 @@ def restaurant_intent_handler(request_json):
             #check for location preference and add a where statement if found
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
                 query.add_where({'location':
-                    f' = "{request_json["queryResult"]["parameters"]["geo-city"].lower()}"'})
+                    f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
 
             #pick a random restaurant from the top n restaurants
             #n is equal to the user openness
             query.limit = default_user_openness
             
             #query
+            print(str(query))
             query_job = client.query(str(query))
             #query.clear()
             query_df = DataFrame([dict(row) for row in query_job])
@@ -94,7 +96,8 @@ def restaurant_intent_handler(request_json):
             return return_card(title = sample_df["name"].values[0],
                             subtitle = str([round(sample_df["rating"].values[0],2),
                                             sample_df["country"].values[0],
-                                            sample_df["price_range"].values[0]]),
+                                            sample_df["price_range"].values[0],
+                                            sample_df["location"].values[0]]),
                             img_url = sample_df["img_url"].values[0],
                             btn_url = sample_df["img_url"].values[0],
                             btn_text = "go to Restaurant web page"
@@ -122,7 +125,8 @@ def restaurant_intent_handler(request_json):
                             subtitle = "I could not find any sprecific restaurant, but you might like this" 
                                             + str([round(sample_df["rating"].values[0],2),
                                                    sample_df["country"].values[0],
-                                                   sample_df["price_range"].values[0]]),
+                                                   sample_df["price_range"].values[0],
+                                                   sample_df["location"].values[0]]),
                             img_url = sample_df["img_url"].values[0],
                             btn_url = sample_df["img_url"].values[0],
                             btn_text = "go to Restaurant web page"
