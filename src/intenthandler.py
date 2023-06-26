@@ -22,7 +22,8 @@ def restaurant_intent_handler(request_json):
         query = CustomQuery(table_name=db_table_to_query,order_by_list=["rating"])
         #check for location preference and add a where statement if found
         if request_json["queryResult"]["parameters"]["geo-city"] != "None":
-            query.add_where({'location': f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
+            query.add_where({'location': 
+                f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
         
         query_job = client.query(str(query))
         #query.clear()
@@ -33,7 +34,8 @@ def restaurant_intent_handler(request_json):
         # WORKAROUND BECAUSE I AM NOT USING NoSQL <--------
         for dish in request_json["queryResult"]["parameters"]["dish"]:
             restaurant_list = [item for item in query_df.iterrows() 
-                                if dish in item[1]["menu_list"] or dish.capitalize() in item[1]["menu_list"]]
+                                if dish in item[1]["menu_list"] or dish.capitalize() 
+                                in item[1]["menu_list"]]
             break
         
         #found no restaurant with that item on the menu 
@@ -63,15 +65,18 @@ def restaurant_intent_handler(request_json):
             query = CustomQuery(table_name=db_table_to_query,order_by_list=["rating"])
             #check for price preference and add a where statement if found
             if request_json["queryResult"]["parameters"]["price_range"] != "None":
-                query.add_where({f'price_range' : f'= "{request_json["queryResult"]["parameters"]["price_range"].lower()}"'})
+                query.add_where({f'price_range' :
+                    f'= "{request_json["queryResult"]["parameters"]["price_range"].lower()}"'})
             
             #check for cuisine preference and add a where statement if found
             if request_json["queryResult"]["parameters"]["cuisine"] != "None":
-                query.add_where({'country': f' = "{request_json["queryResult"]["parameters"]["cuisine"].lower()}"'})
+                query.add_where({'country':
+                    f' = "{request_json["queryResult"]["parameters"]["cuisine"].lower()}"'})
                 
             #check for location preference and add a where statement if found
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
-                query.add_where({'location': f' = "{request_json["queryResult"]["parameters"]["geo-city"].lower()}"'})
+                query.add_where({'location':
+                    f' = "{request_json["queryResult"]["parameters"]["geo-city"].lower()}"'})
 
             #pick a random restaurant from the top n restaurants
             #n is equal to the user openness
@@ -87,7 +92,9 @@ def restaurant_intent_handler(request_json):
             
 
             return return_card(title = sample_df["name"].values[0],
-                            subtitle = str([round(sample_df["rating"].values[0],2), sample_df["country"].values[0], sample_df["price_range"].values[0]]),
+                            subtitle = str([round(sample_df["rating"].values[0],2),
+                                            sample_df["country"].values[0],
+                                            sample_df["price_range"].values[0]]),
                             img_url = sample_df["img_url"].values[0],
                             btn_url = sample_df["img_url"].values[0],
                             btn_text = "go to Restaurant web page"
@@ -101,7 +108,8 @@ def restaurant_intent_handler(request_json):
                                 where_statements={'price_range':f'= "{default_user_price_range}"'},
                                 order_by_list=["rating"], limit = default_user_openness)
             if request_json["queryResult"]["parameters"]["geo-city"] != "None":
-                query.add_where({'location': f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
+                query.add_where({'location':
+                    f' = "{request_json["queryResult"]["parameters"]["geo-city"]}"'})
             else:
                 query.add_where({'location': f' = "{default_user_location}"'})
         
@@ -112,7 +120,9 @@ def restaurant_intent_handler(request_json):
             
             return return_card(title = sample_df["name"].values[0],
                             subtitle = "I could not find any sprecific restaurant, but you might like this" 
-                                            + str([round(sample_df["rating"].values[0],2), sample_df["country"].values[0], sample_df["price_range"].values[0]]),
+                                            + str([round(sample_df["rating"].values[0],2),
+                                                   sample_df["country"].values[0],
+                                                   sample_df["price_range"].values[0]]),
                             img_url = sample_df["img_url"].values[0],
                             btn_url = sample_df["img_url"].values[0],
                             btn_text = "go to Restaurant web page"
