@@ -9,7 +9,7 @@ that were important to users, that took part in this survey.
 The dialogflow chatbot was not integrated with any system, it was tested with the test console, available at: <br>
 https://dialogflow.cloud.google.com/ 
 
-# 2. how the chatbot response (intent = restaurant)
+# 2. how the chatbot responds (intent = restaurant)
 
 After getting a invocation from Dialogflow the webhook tries to build a valid sql query.
 
