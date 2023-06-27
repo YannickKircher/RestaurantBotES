@@ -59,16 +59,16 @@ Except for the names. <br>
 It is saved in a GCP BigQuery table named: <br>
 `restaurantguide-9oyv.restaurant_guide.restaurants_random`
 
-| name        | type    |                                                                              |   |   |
-|-------------|---------|------------------------------------------------------------------------------|---|---|
-| ----        | -----   |                                                                              |   |   |
-| name        | str     | -> random restaurant names picked from data, that i scraped from yelp        |   |   |
-| country     | str     | -> random cuisine, country based. for example "italian"                      |   |   |
-| rating      | float64 | -> more or less random values between 0 and 5 however mostly between 3 and 4 |   |   |
-| price_range | str     | -> random one of [low, medium, high]                                         |   |   |
-| location    | str     | -> random one of ["Rome", "Florence", "Venice", "Turin", "Matera"]           |   |   |
-| img_url     | str     | -> img url, that matches (more or less) the cuisine in column country        |   |   |
-| menu_list   | list    | -> random list of dishes                                                     |   |   |
+| name        | type    |                                                                              |
+|-------------|---------|------------------------------------------------------------------------------|
+| ----        | -----   |                                                                              |
+| name        | str     | -> random restaurant names picked from data, that i scraped from yelp        |
+| country     | str     | -> random cuisine, country based. for example "italian"                      |
+| rating      | float64 | -> more or less random values between 0 and 5 however mostly between 3 and 4 |
+| price_range | str     | -> random one of [low, medium, high]                                         |
+| location    | str     | -> random one of ["Rome", "Florence", "Venice", "Turin", "Matera"]           |
+| img_url     | str     | -> img url, that matches (more or less) the cuisine in column country        |
+| menu_list   | list    | -> random list of dishes                                                     |
 
 ## Images 
 
