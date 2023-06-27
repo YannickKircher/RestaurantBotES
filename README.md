@@ -9,6 +9,19 @@ that were important to users, that took part in this survey.
 The dialogflow chatbot was not integrated with any system, it was tested with the test console, available at: <br>
 https://dialogflow.cloud.google.com/ 
 
+# 2. Entities and intents 
+only one intent is defined for the for the chatbot, it is called restaurant
+and its goal is to collect relevant data and recomend a restaurant based on that data. 
+
+The defined entities, that can be identified are 
+
+|ENTITY       |                   |
+|-------------|-------------------|
+|sys.geo-city | -> location       |
+|cuisine      |                   |
+|price_range  |                   |
+|dish         | -> list of dishes |
+
 # 2. how the chatbot responds (intent = restaurant)
 
 After getting a invocation from Dialogflow the webhook tries to build a valid sql query.
@@ -61,7 +74,6 @@ It is saved in a GCP BigQuery table named: <br>
 
 | name        | type    |                                                                              |
 |-------------|---------|------------------------------------------------------------------------------|
-| ----        | -----   |                                                                              |
 | name        | str     | -> random restaurant names picked from data, that i scraped from yelp        |
 | country     | str     | -> random cuisine, country based. for example "italian"                      |
 | rating      | float64 | -> more or less random values between 0 and 5 however mostly between 3 and 4 |
