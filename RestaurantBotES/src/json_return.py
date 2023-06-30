@@ -49,3 +49,24 @@ def return_text(text_response):
         ]
         }
 
+def return_text_test(text_response,):
+    """builds a json response with a text response, 
+    that can be shown by the dialogflow API to the user"""
+    return {
+        "fulfillmentMessages": [
+            {
+            "text": {
+                "text": [
+                text_response
+                ]
+            }
+            }
+        ],
+        "sessionInfo": [
+            {
+                "parameters": {
+                    "restaurant": "123",
+                }
+            }
+        ],
+    }
