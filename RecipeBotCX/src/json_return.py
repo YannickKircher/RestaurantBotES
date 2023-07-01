@@ -11,9 +11,9 @@ def rich_text(texts:list,content_type="chips"):
         }
 
 
-def test_text(recipe_id,recipe_name,ingredients,directions):
+def json_recipe_data(recipe_id,recipe_name,ingredients,directions):
   
-  lines = [recipe_name]+[""]+ingredients+[""]+directions 
+  lines = [recipe_name]+["\n".join(["<b>Ingredients:</b>"]+ingredients)]+["\n".join(["<b>Directions:</b>"]+directions)]
   
   return {
    "fulfillment_response": {
