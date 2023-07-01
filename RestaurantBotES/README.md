@@ -84,7 +84,6 @@ However, I did not have enough time to setup and rewrite the code to use a NoSQL
 
 Resturants (used to get the names): https://www.kaggle.com/datasets/farukalam/yelp-restaurant-reviews <br>
 Restaurants (not used): https://www.kaggle.com/datasets/uciml/restaurant-data-with-consumer-ratings?select=userprofile.csv <br>
-Recepes (not used): https://eightportions.com/datasets/Recipes/#fn:1 <br>
 
 # 5. How does the user data look like 
 
