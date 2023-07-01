@@ -1,6 +1,6 @@
 import pymongo
 from configparser import ConfigParser
-from json_return import test_text
+from json_return import json_recipe_data
 
 def main(request):
 
@@ -35,4 +35,7 @@ def main(request):
         recipe_instructions
     )
     
-    return test_text(recipe_id,recipe_name,recipe_ingredients,recipe_instructions)
+    response = json_recipe_data(recipe_id,recipe_name,recipe_ingredients,recipe_instructions)
+    print(response)
+    
+    return response
