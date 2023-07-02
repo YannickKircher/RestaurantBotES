@@ -1,0 +1,4 @@
+pymongo
+numpy
+numpy
+google-cloud-bigquery
