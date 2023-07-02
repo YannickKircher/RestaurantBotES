@@ -11,9 +11,9 @@ def rich_text(texts:list,content_type="chips"):
         }
 
 
-def json_recipe_data(recipe_id,recipe_name,ingredients,directions):
+def json_recipe_data(recipe_id,into_message,recipe_name,ingredients,directions):
   
-  lines = [recipe_name]+["\n".join(["Ingredients:"]+ingredients)]+["\n".join(["Directions:"]+directions)]
+  lines = [into_message]+[recipe_name]+["\n".join(["Ingredients:"]+ingredients)]+["\n".join(["Directions:"]+directions)]
   
   return {
    "fulfillment_response": {
@@ -28,6 +28,27 @@ def json_recipe_data(recipe_id,recipe_name,ingredients,directions):
    "sessionInfo": {
      "parameters": {
           "recipe_id": recipe_id
+     }
+   }
+ }
+  
+
+def json_text_response(text):
+  
+  
+  return {
+   "fulfillment_response": {
+     "messages": [
+       {
+         "text": {
+           "text": [text]
+         }
+       } 
+     ]
+   },
+   "sessionInfo": {
+     "parameters": {
+          "recipe_id": None
      }
    }
  }
